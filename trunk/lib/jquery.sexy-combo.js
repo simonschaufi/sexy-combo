@@ -958,9 +958,9 @@
 	    for (var i = 0, len = data.length; i < len; ++i) {
 	        selected = data[i].selected || false;
 	        $("<option />").appendTo($selectbox).
-		attr("value", data[i][config.key]).
-		text(data[i][config.value]).
-		attr("selected", selected);
+			attr("value", data[i][config.key]).
+			text(data[i][config.value]).
+			attr("selected", selected);
 	    }
 	    
 	    return $selectbox.get(0);
@@ -983,6 +983,12 @@
 		
 		//if true, combo with multiple choice will be created
 		multiple: false,
+		
+		//key json name for key/value pair
+		key: "value",
+		
+		//value json for key/value pair
+		value: "text",		
 		
 		//an element that will contain the widget
 		container: $(document),
