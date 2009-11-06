@@ -122,6 +122,9 @@
 	    appendTo(this.wrapper).
 	    //addClass("invisible").
 	    addClass("list-wrapper"); 
+		if ("function" == typeof this.listWrapper.bgiframe) {
+		    this.listWrapper.bgiframe({height: 1000});
+		}
 	    this.updateDrop();
 	
 	    this.list = $("<ul />").appendTo(this.listWrapper); 
