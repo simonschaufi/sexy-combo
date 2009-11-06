@@ -14,4 +14,12 @@ $(function() {
     }, dropUp: true});
     
     $("#mixed-combo").sexyCombo({emptyText: "Choose a state", autoFill: true, dropUp: true});
+    
+    var data = [];
+    $("#selectbox").children().each(function() {
+        var $this = $(this);
+        data.push({value: $this.attr("value"), text: $this.text()});
+    });
+    
+    $.sexyCombo.create({name: "static-combo", id: "static-combo", container: "#static-container", data: data, dropUp: true});
 });

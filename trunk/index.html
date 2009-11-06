@@ -78,6 +78,30 @@
       <code>(bool) dropUp</code> - if true, the dropdown list will appear above text input. Default is false.
       </li>
     </ul>
+    <p>
+    You are also able to create combos without using  existing selectboxes. If you want to do this, you should use static method of <code>jQuery.sexyCombo</code> object named <code>create</code>, for example: <br />
+      <code><pre>
+      $.sexyCombo.create({
+          id : "id",
+	  name: "name",
+	  container: "#container",
+	  data: [
+	      {value: "1", text: "First option"},
+	      {value: "2", text: "Second option"},
+	      {value: "3", text: "Third option"}
+	  ]
+      });
+      </pre></code>
+    </p>
+    <p>
+    Below is the list of configuration options for static creating of comboboxes. You can pass them to the <code>create</code> method together with options we have discussed above.
+    </p>
+	<ul>
+	    <li><code>(string) name</code> - the name of the selectbox that will be created. Optional. Default is "" (empty string).</li>
+		<li><code>(string) id</code> - the id of the selectbox that will be created. Optional. Default is "" (empty string)</li>
+		<li><code>(mixed) container</code> - jQuery selector, jQuery object or DOM element that will hold the widget. Optional. Default is <code>$(document)</code>.</li>
+		<li><code>(array) data</code> - data that contains information about combo's options. This is an array of objects, which should have two properties - <code>value</code>(value of the option) and <code>text</code>(text that is displayed for this option). This option is required.</li>
+	</ul>
     <h2>Appearance customization</h2>
     <p>
     In this version I have separated core CSS and presentational CSS, so now it's possible to create new skins for <em>Sexy Combo</em>. The download package contains one example skin. Feel free to create your own based on it.
@@ -120,7 +144,7 @@
     <h2>Resources</h2>
     <ul>
       <li><a href="http://code.google.com/p/sexy-combo/">Sexy Combo</a> on the Google Code</li>
-      <li><a href="#">Sexy Combo</a> in jQuery plugins directory.</li>
+      <li><a href="http://plugins.jquery.com/project/SexyCombo">Sexy Combo</a> in jQuery plugins directory.</li>
     </ul>
   </body>
 </html>

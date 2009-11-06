@@ -1,3 +1,24 @@
+/***************************************************************************
+ *   Copyright (C) 2009 by Vladimir Kadalashvili                                       *
+ *   Kadalashvili.Vladimir@gmail.com                                                    *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+
+
 ;(function() {
     $.fn.sexyCombo = function(config) {
         return this.each(function() {
@@ -5,18 +26,39 @@
 	});  
     };
     
+    //default config options
     var defaults = {
+        //skin name
         skin: "sexy",
+	
+	//this suffix will be appended to the selectbox's name and will be text input's name
 	suffix: "__sexyCombo",
+	
+	//the same as the previous, but for hidden input
 	hiddenSuffix: "__sexyComboHidden",
+	
+	//initial / default hidden field value.
+	//Also applied when user types something that is not in the options list
 	initialHiddenValue: "",
+	
+	//if provided, will be the value of the text input when it has no value and focus
 	emptyText: "",
+	
+	//if true, autofilling will be enabled
 	autoFill: false,
+	
+	//if true, selected option of the selectbox will be the initial value of the combo
 	triggerSelected: false,
+	
+	//function for options filtering
 	filterFn: null,
+	
+	//if true, the options list will be placed above text input
 	dropUp: false
     };
     
+    //constructor
+    //creates initial markup and does some initialization
     $.sexyCombo = function(selectbox, config) {
         if (selectbox.nodeName != "SELECT")
 	    return;
@@ -84,11 +126,16 @@
 
     };
     
+    
+    //shortcuts
     $sc = $.sexyCombo;
     $sc.fn = $sc.prototype = {};
     $sc.fn.extend = $sc.extend = $.extend;
     
     $sc.fn.extend({
+        //TOC of our plugin
+	//initializes all event listeners
+	//it would be more correct to call it initEvents
         init: function() {
 	    var self = this;
 	    
@@ -127,6 +174,7 @@
 	    this.applyEmptyText();
 	},
 	
+	//icon click event listener
 	iconClick: function() {
 	    if (this.listVisible()) 
 	        this.hideList();
@@ -136,10 +184,12 @@
             this.input.focus();
 	},
 	
+	//returns true when dropdown list is visible
 	listVisible: function() {
 	    return this.listWrapper.hasClass("visible");
 	},
 	
+	//shows dropdown list
 	showList: function() {
 	    if (!this.listItems.filter(".visible").length)
 	        return;
@@ -152,15 +202,18 @@
 	    this.listWrapper.scrollTop(0);
 	},
 	
+	//hides dropdown list
 	hideList: function() {
 	    this.listWrapper.removeClass("visible").
 	    addClass("invisible");
 	},
 	
+	//returns sum of all visible items height
 	getListItemsHeight: function() {
 	    return this.listItems.height() * this.liLen();
 	},
 	
+	//changes list wrapper's overflow from hidden to scroll and vice versa (depending on list items height))
 	setOverflow: function() {
 	    if (this.getListItemsHeight() > this.getListMaxHeight())
 	        this.listWrapper.css(this.overflowCSS, "scroll");
@@ -168,6 +221,7 @@
 	        this.listWrapper.css(this.overflowCSS, "hidden");	
 	},
 	
+	//highlights active item of the dropdown list
 	highlight: function(activeItem) {
 	    if (($sc.KEY.DOWN == this.lastKey) || ($sc.KEY.UP == this.lastKey))
 	        return;
@@ -176,6 +230,7 @@
 	    $(activeItem).addClass("active");
 	},
 	
+	//sets text and hidden inputs value
 	setComboValue: function(val) {
 	    val = $.trim(val);    
 	    this.input.val(val); 
@@ -185,6 +240,8 @@
 	    this.input.removeClass("empty");
 	},
 	
+	//sets hidden inputs value
+	//takes text input's value as a param
 	setHiddenValue: function(val) {
 	    var set = false;
 	    val = $.trim(val);
@@ -207,6 +264,7 @@
 	    this.inputFocus();
 	},
 	
+	//adds / removes items to / from the dropdown list depending on combo's current value
 	filter: function() {
 	    var comboValue = this.input.val();
 	    var self = this;
@@ -229,14 +287,17 @@
 	    this.setListHeight();
 	},
 	
+	//default dropdown list filtering function
 	filterFn: function(comboValue, itemValue) {
 	    return itemValue.toLowerCase().search(comboValue.toLowerCase()) == 0;
 	},
 	
+	//just returns integer value of list wrapper's max-height property
 	getListMaxHeight: function() {
 	    return parseInt(this.listWrapper.css("maxHeight"), 10);
 	},
 	
+	//corrects list wrapper's height depending on list items height
 	setListHeight: function() {
 	    var liHeight = this.getListItemsHeight();
 	    var maxHeight = this.getListMaxHeight();
@@ -249,6 +310,7 @@
 	    }
 	},
 	
+	//returns active (hovered) element of the dropdown list
 	getActive: function() {
 	    return this.listItems.filter(".active");
 	},
@@ -278,10 +340,12 @@
 	    
 	},
 	
+	//returns number of currently visible list items
 	liLen: function() {
 	    return this.listItems.filter(".visible").length;
 	},
 	
+	//triggered when the user changes combo value by typing
 	inputChanged: function() {
 	    this.filter();
 
@@ -297,11 +361,13 @@
 	    
 	},
 	
+	//highlights first item of the dropdown list
 	highlightFirst: function() {
 	    this.listItems.removeClass("active").filter(".visible:eq(0)").addClass("active");
 	    this.autoFill();
 	},
 	
+	//highlights item of the dropdown list next to the currently active item
 	highlightNext: function() {
 	    var $next = this.getActive().next();
 	    
@@ -316,6 +382,7 @@
 	    }
 	},
 	
+	//scrolls list wrapper down when needed
 	scrollDown: function() {
 	    if ("scroll" != this.listWrapper.css(this.overflowCSS))
 	        return;
@@ -333,6 +400,8 @@
 	        this.listWrapper.scrollTop(minScroll);
 	},
 	
+	
+	//highlights list item before currently active item
 	highlightPrev: function() {
 	    var $prev = this.getActive().prev();
 	    
@@ -346,10 +415,13 @@
 	    }
 	},
 	
+	//returns index of currently active list item
 	getActiveIndex: function() {
 	    return $.inArray(this.getActive().get(0), this.listItems.filter(".visible").get());
 	},
 	
+	
+	//scrolls list wrapper up when needed
 	scrollUp: function() {
 	    
 	    if ("scroll" != this.listWrapper.css(this.overflowCSS))
@@ -362,7 +434,7 @@
 	    }     
 	},
 	
-	
+	//emptyText stuff
 	applyEmptyText: function() {
 	    if (!this.config.emptyText.length)
 	        return;
@@ -395,6 +467,7 @@
 	    
 	},
 	
+	//triggerSelected stuff
 	triggerSelected: function() {
 	    if (!this.config.triggerSelected)
 	        return;
@@ -408,6 +481,7 @@
 		
 	},
 	
+	//autofill stuff
 	autoFill: function() {
 	    if (!this.config.autoFill || ($sc.KEY.BACKSPACE == this.lastKey))
 	        return;
@@ -419,6 +493,8 @@
 	    	
 	},
 	
+	//provides selection for autofilling
+	//borrowed from jCarousel
 	selection: function(field, start, end) {
 	    if( field.createTextRange ){
 		var selRange = field.createTextRange();
@@ -437,6 +513,8 @@
 	   // field.focus();	
 	},
 	
+	
+	//for internal use
 	updateDrop: function() {
 	    if (this.config.dropUp)
 	        this.listWrapper.addClass("list-wrapper-up");
@@ -444,12 +522,15 @@
 	        this.listWrapper.removeClass("list-wrapper-up");	
 	},
 	
+	//updates dropUp config option
 	setDropUp: function(drop) {
             this.config.dropUp = drop;    
 	}
     });
     
     $sc.extend({
+        //key codes
+	//from jCarousel
         KEY: {
 	    UP: 38,
 	    DOWN: 40,
@@ -463,9 +544,42 @@
 	    BACKSPACE: 8	
 	},
 	
+	//for debugging
 	log: function(msg) {
 	    var $log = $("#log");
 	    $log.html($log.html() + msg + "<br />");
+	},
+	
+        createSelectbox: function(config) {
+	    var $selectbox = $("<select />").
+	    appendTo(config.container).
+	    attr({name: config.name, id: config.id, size: "1"});
+	    
+	    var data = config.data;
+	    
+	    for (var i = 0, len = data.length; i < len; ++i) {
+	        $("<option />").appendTo($selectbox).
+		attr("value", data[i].value).
+		text(data[i].text);
+	    }
+	    
+	    return $selectbox.get(0);
+	},
+	
+	create: function(config) {
+            var defaults = {
+	        name: "",
+		id: "",
+		data: [],
+		container: $(document)
+	    };
+	    config = $.extend({}, defaults, config || {});
+	    
+	    config.container = $(config.container);
+	    
+            var selectbox = $sc.createSelectbox(config);
+	    return new $sc(selectbox, config);
+	    
 	}
     });
 })(jQuery); 
