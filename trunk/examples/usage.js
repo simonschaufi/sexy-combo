@@ -42,6 +42,7 @@ $(function() {
     $("#multiple-combo").sexyCombo();
     
     var logEvent = function(msg) {
+		return;
         var $eventLogger = $("#event-logger");
 	$eventLogger.html($eventLogger.html() + msg + "<br />");
     };
