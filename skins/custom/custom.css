@@ -1,81 +1,27 @@
-
-div.custom {
-    white-space: nowrap;
-    height: 24px;
-    border: 0;
-    margin: 0;
-    padding: 0;
-    width: 146px;
+DIV.custom {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 146px; PADDING-TOP: 0px; WHITE-SPACE: nowrap; HEIGHT: 24px; BORDER-RIGHT-WIDTH: 0px
 }
-
-div.custom input {
-    margin: 0 0 0 0;
-    font:normal 14px tahoma, arial, helvetica, sans-serif;
-    padding:1px 3px;
-    background:#fff url(sexy-input-bg.jpg) repeat-x 0 0;
-    border:1px solid #000000;
-    height: 20px;
-    line-height: 20px;
-    vertical-align:middle; 
-    left: 0px;
-    top: 0px; 
-    width: 187px;  
-
+DIV.custom INPUT {
+	BORDER-RIGHT: #3a3c6c 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #3a3c6c 1px solid; PADDING-LEFT: 3px; BACKGROUND: url(sexy-input-bg.jpg) #fff repeat-x 0px 0px; LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 11px/19px tahoma, arial, helvetica, sans-serif; VERTICAL-ALIGN: middle; BORDER-LEFT: #3a3c6c 1px solid; WIDTH: 187px; PADDING-TOP: 3px; BORDER-BOTTOM: #3a3c6c 1px solid; TOP: 0px; HEIGHT: 19px;
 }
-
-div.custom div.icon {
-    width:24px;
-    height:24px;
-    border: 0;
-    background:transparent url(arrow.jpg) no-repeat 0 0;
-    cursor:pointer;
-   /* border-bottom: 1px solid #B5B8C8;*/
-    top:0px;
-    left: 187px; 
-
+DIV.custom DIV.icon {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(arrow.jpg) no-repeat 0px 0px; LEFT: 187px; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 24px; CURSOR: pointer; TOP: 0px; HEIGHT: 24px; BORDER-RIGHT-WIDTH: 0px
 }
-
-
-div.custom div.list-wrapper {
-    left: 0px;
-    top: 24px;
-    border: 1px solid #000000;
-	border-top: 0;
-    background-color: #FFFFFF;
-    padding: 0;
-    margin: 0;
-    width: 205px;
-    bottom: auto;
+DIV.custom DIV.list-wrapper {
+	BORDER-RIGHT: #3a3c6c 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #3a3c6c 0px solid; PADDING-LEFT: 0px; LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: #3a3c6c 1px solid; WIDTH: 204px; BOTTOM: auto; PADDING-TOP: 0px; BORDER-BOTTOM: #3a3c6c 1px solid; TOP: 24px; BACKGROUND-COLOR: #ffffff
 }
-
-div.custom div.list-wrapper-up {
-    top: auto;
-    bottom: 24px;
-    border: 1px solid #000000;
-	border-bottom: 0;	
+DIV.custom DIV.list-wrapper-up {
+	BORDER-RIGHT: #3a3c6c 1px solid; BORDER-TOP: #3a3c6c 1px solid; BORDER-LEFT: #3a3c6c 1px solid; BOTTOM: 24px; BORDER-BOTTOM: #3a3c6c 0px solid; TOP: auto
 }
-
-div.custom ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    height: 200px;
+DIV.custom UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none; HEIGHT: 200px; TEXT-ALIGN: left; 
 }
-
-
-div.custom  li {
-    padding: 0;
-    padding-left: 5px;
-    font:normal 14px tahoma, arial, helvetica, sans-serif;
-    background-color: #FFFFFF;
-    cursor: pointer;
-    margin: 0;
+DIV.custom LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 5px; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 11px tahoma, arial, helvetica, sans-serif; CURSOR: pointer; PADDING-TOP: 4px; BACKGROUND-COLOR: #ffffff
 }
-
-div.custom li.active {
-    background-color: rgb(160, 169, 194);
+DIV.custom LI.active {
+	BACKGROUND-COLOR: rgb(160,169,194)
 }
-
-div.custom input.empty {
-    color: gray;
+DIV.custom INPUT.empty {
+	COLOR: gray;
 }
