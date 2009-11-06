@@ -29,6 +29,39 @@ $(function() {
     $.sexyCombo.create({name: "ajax-combo", id: "ajax-combo", container: "#ajax-container", url: "example.json", dropUp: true});
     
     $("#multiple-combo").sexyCombo({dropUp: true});
+    
+    var logEvent = function(msg) {
+        var $eventLogger = $("#event-logger");
+	$eventLogger.html($eventLogger.html() + msg + "<br />");
+    };
+    
+    $("#event-combo").sexyCombo({
+        dropUp: true,
+	
+	showListCallback: function() {
+	    logEvent("Dropdown list appeared.");
+	},
+	
+	hideListCallback: function() {
+	    logEvent("Dropdown list disappeared.");
+	},
+	
+	initCallback: function() {
+	    logEvent("Initialization...");
+	},
+	
+	initEventsCallback: function() {
+	    logEvent("Events initialized.");
+	},
+	
+	changeCallback: function() {
+	    logEvent("Combo value is changed. Text input value is " + this.getTextValue() + ". Hidden input value is " + this.getHiddenValue());
+	},
+	
+	textChangeCallback: function() {
+	    logEvent("Text input's value is changed. Current value is " + this.getTextValue());
+	}
+    });
 
 
 });

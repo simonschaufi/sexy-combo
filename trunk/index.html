@@ -77,9 +77,37 @@
       <li>
       <code>(bool) dropUp</code> - if true, the dropdown list will appear above text input. Default is false.
       </li>
+      <!--new-->
+      <li>
+      <code>(function) initCallback</code> - function that is called at the end of constrictor. Default is null.
+      </li>
+      <li>
+      <code>(function) initEventsCallback</code> - function that is called at the end of initEvents method. Default is null.
+      </li>  
+      <li>
+      <code>(function) showListCallback</code> - function that is called when the dropdown list appears. Default is null.
+      </li>  
+      <li>
+      <code>(function) hideListCallback</code> - function that is called when the dropdown list disappears. Default is null.
+      </li>  
+      <li>
+      <code>(function) changeCallback</code> - function that is called when both text and hidden inputs values are changed. Default is null.
+      </li>  
+      <li>
+      <code>(function) textChangeCallback</code> - function that is called when text input's value is changed. Default is null.
+      </li>                    
+      <!--end new-->
     </ul>
+    <!--new-->
+    <p>
+    Note that all callback functions are called in the scope of <code>sexyCombo</code> instance, so you have access to all of its methids / properties.
+    </p>
+    <!--end new-->
     <p>
     It is possible to create multiple comboboxes from which users can choose more than one option. All you need is to set "multiple" attribute of your selectbox to true, or set <code>multiple</code> config option to true if you create combo without selectbox. Currently this option does not work with <code>autoFill</code> config option. It will be fixed in one of the futute releases.
+    </p>
+    <p>
+    
     </p>
     <p>
     You are also able to create combos without using  existing selectboxes. If you want to do this, you should use static method of <code>jQuery.sexyCombo</code> object named <code>create</code>, for example: <br />
