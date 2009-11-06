@@ -62,7 +62,13 @@
 	
 	    //separator for values of multiple combos
 	    separator: ",",
-	
+			
+		//key json name for key/value pair
+		key: "value",
+		
+		//value json for key/value pair
+		value: "text",
+
 	    //all callback functions are called in the scope of the current sexyCombo instance
 	
 	    //called after dropdown list appears
@@ -76,12 +82,13 @@
 	
 	    //called at the end of initEvents function
 	    initEventsCallback: null,
-	
+		    
 	    //called when both text and hidden inputs values are changed
 	    changeCallback: null,
 	
 	    //called when text input's value is changed
 	    textChangeCallback: null,
+	    
 		checkWidth: true
     };
     
@@ -951,8 +958,8 @@
 	    for (var i = 0, len = data.length; i < len; ++i) {
 	        selected = data[i].selected || false;
 	        $("<option />").appendTo($selectbox).
-		attr("value", data[i].value).
-		text(data[i].text).
+		attr("value", data[i][config.key]).
+		text(data[i][config.value]).
 		attr("selected", selected);
 	    }
 	    
