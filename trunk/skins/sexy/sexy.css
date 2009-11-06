@@ -72,6 +72,23 @@ div.sexy li.active {
     background-color: rgb(223, 232, 246);
 }
 
+/*for IE*/
+div.sexy a, div.sexy a:visited, div.sexy a:active {
+    display: block;
+	width: 100%;
+	width: 146px;
+	text-decoration: none;
+    font:normal 14px  tahoma, arial, helvetica, sans-serif;
+	color: #000000;
+    cursor: pointer;
+    margin: 0;	
+	height: 20px;
+}
+
 div.sexy input.empty {
     color: gray;
+}
+
+a.to-highlight:hover {
+    background-color: rgb(223, 232, 246);
 }

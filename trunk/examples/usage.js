@@ -1,8 +1,7 @@
 $(function() {
 		   
 	  
-    	   
-    $("#basic-combo").sexyCombo({triggerSelected: true});
+    $("#basic-combo").sexyCombo();
 	
 		
 	$.sexyCombo.deactivate("#basic-combo");
