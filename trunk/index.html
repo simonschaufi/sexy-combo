@@ -45,7 +45,7 @@
 	</li>
     </ol>
     </p>
-    <h2>Configuration options</h2>
+    <h2>Usage and configuration options</h2>
     <p>
     <em>Sexy Combo</em> has a number of configuration options that are passed to the plugin in the form of JavaScript object, e.g. <code>$("select").sexyCombo({triggerSelected: true});</code>. The full list of options is:
     </p>
@@ -79,6 +79,9 @@
       </li>
     </ul>
     <p>
+    It is possible to create multiple comboboxes from which users can choose more than one option. All you need is to set "multiple" attribute of your selectbox to true, or set <code>multiple</code> config option to true if you create combo without selectbox. Currently this option does not work with <code>autoFill</code> config option. It will be fixed in one of the futute releases.
+    </p>
+    <p>
     You are also able to create combos without using  existing selectboxes. If you want to do this, you should use static method of <code>jQuery.sexyCombo</code> object named <code>create</code>, for example: <br />
       <code><pre>
       $.sexyCombo.create({
@@ -106,6 +109,9 @@
 		</li>
 		<li>
 		<code>(object) ajaxData</code> - data that will be passed to AJAX request.
+		</li>
+		<li>
+		<code>(bool) multiple</code> - if true, the combobox will be multiple. Default is false.
 		</li>
 	</ul>    
     <h2>Appearance customization</h2>
