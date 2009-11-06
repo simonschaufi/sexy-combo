@@ -27,4 +27,8 @@ $(function() {
     $.sexyCombo.create({name: "static-selected-combo", id: "static-selected-combo", container: "#static-selected", data: data, dropUp: true, triggerSelected: true});
     
     $.sexyCombo.create({name: "ajax-combo", id: "ajax-combo", container: "#ajax-container", url: "example.json", dropUp: true});
+    
+    $("#multiple-combo").sexyCombo({dropUp: true});
+
+
 });
