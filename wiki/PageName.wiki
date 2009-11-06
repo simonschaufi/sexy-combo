@@ -5,23 +5,22 @@
  
 Sexy Combo is a jQuery plugin that replaces drop downs with a more usable and style-able version then the browser default. The plugin offers:
 
-* Skinnable dropdowns: easy to style however you want, with a sexy default skin included.
+* Skinned drop downs: A sexy default skin included, but modular code and smart CSS make it easy to style however you want. 
 * Filtering select via typing: Start typing to narrow down a large list, rather then scrolling thru a huge list.
 *  Lots of configuration options to tweak its behavior.
+* Support for multiple options
  
 == Examples ==
 
-Please view [http://phone.witamean.net/sexy-combo/examples/index.html demo page] to see the possibilities of _Sexy Combo_.
+Please view [http://phone.witamean.net/sexy-combo/examples/index.html demo page] to see the possibilities of _Sexy Combo 2.0.9_.  Newer version of example pages coming soon.
     
  
 == Installation ==
 
 Please follow these instructions to install Sexy Combo:
-    
 
-
-# [Download] and unpack the archive.
-# 	Include jQuery and plugin files to your web page:  {{{  	&lt;script type="text/javascript" src="path_to_plugin/lib/jquery-1.3.2.js"&gt;&lt;/script&gt; 	&lt;script type="text/javascript" src="path_to_plugin/lib/jquery.sexy-combo-2.0.js"&gt;&lt;/script&gt; 	 }}}
+# Download and unpack the archive.
+# Include jQuery and plugin files to your web page:  {{{  	&lt;script type="text/javascript" src="path_to_plugin/lib/jquery-1.3.2.js"&gt;&lt;/script&gt; 	&lt;script type="text/javascript" src="path_to_plugin/lib/jquery.sexy-combo-2.0.js"&gt;&lt;/script&gt; 	 }}}
 # 	    Include core and skin CSS files to your page: {{{  	    &lt;link rel="stylesheet" type="text/css" href="path_to_plugin/lib/sexy-combo.css" /&gt; 	    &lt;link rel="stylesheet" type="text/css" href="path_to_plugin/skins/skin_name/skin_name.css" /&gt; 	    }}}
 # 	Done! Now make your selectboxes look and behave sexy! 	 {{{  	$("select").sexyCombo(); 	 }}}
   
