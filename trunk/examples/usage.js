@@ -1,19 +1,30 @@
 $(function() {
+		   
+	  
+    	   
     $("#basic-combo").sexyCombo();
+	
+		
+	$.sexyCombo.deactivate("#basic-combo");
+	$("#activate").bind("click", function() {
+        $.sexyCombo.activate("#basic-combo");   								  
+	});
     
     $("#empty-combo").sexyCombo({emptyText: "Choose a state..."});
     
     $("#autofill-combo").sexyCombo({autoFill: true});
     
     $("#selected-combo").sexyCombo({triggerSelected: true});
+	
+
     
-    $("#up-combo").sexyCombo({dropUp: true});
+    $("#up-combo").sexyCombo();
     
     $("#filter-combo").sexyCombo({filterFn: function() {
         return true;
-    }, dropUp: true});
+    }});
     
-    $("#mixed-combo").sexyCombo({emptyText: "Choose a state", autoFill: true, dropUp: true});
+    $("#mixed-combo").sexyCombo({emptyText: "Choose a state", autoFill: true, skin: "custom"});
     
     var data = [];
     $("#selectbox").children().each(function() {
@@ -21,14 +32,14 @@ $(function() {
         data.push({value: $this.attr("value"), text: $this.text()});
     });
     
-    $.sexyCombo.create({name: "static-combo", id: "static-combo", container: "#static-container", data: data, dropUp: true});
+    $.sexyCombo.create({name: "static-combo", id: "static-combo", container: "#static-container", data: data});
     
     data[0].selected = true;
-    $.sexyCombo.create({name: "static-selected-combo", id: "static-selected-combo", container: "#static-selected", data: data, dropUp: true, triggerSelected: true});
+    $.sexyCombo.create({name: "static-selected-combo", id: "static-selected-combo", container: "#static-selected", data: data, triggerSelected: true});
     
-    $.sexyCombo.create({name: "ajax-combo", id: "ajax-combo", container: "#ajax-container", url: "example.json", dropUp: true});
+    $.sexyCombo.create({name: "ajax-combo", id: "ajax-combo", container: "#ajax-container", url: "example.json"});
     
-    $("#multiple-combo").sexyCombo({dropUp: true});
+    $("#multiple-combo").sexyCombo();
     
     var logEvent = function(msg) {
         var $eventLogger = $("#event-logger");
@@ -36,7 +47,7 @@ $(function() {
     };
     
     $("#event-combo").sexyCombo({
-        dropUp: true,
+       
 	
 	showListCallback: function() {
 	    logEvent("Dropdown list appeared.");
@@ -62,6 +73,8 @@ $(function() {
 	    logEvent("Text input's value is changed. Current value is " + this.getTextValue());
 	}
     });
+	
+	
 
 
 });
