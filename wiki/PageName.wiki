@@ -5,10 +5,10 @@
  
 Sexy Combo is a jQuery plugin that replaces drop downs with a more usable and style-able version then the browser default. The plugin offers:
 
-* Skinned drop downs: A sexy default skin included, but modular code and smart CSS make it easy to style however you want. 
-* Filtering select via typing: Start typing to narrow down a large list, rather then scrolling thru a huge list.
-*  Lots of configuration options to tweak its behavior.
-* Support for multiple options
+*Skinned drop downs: A sexy default skin included, but modular code and smart CSS make it easy to style however you want. 
+*Filtering select via typing: Start typing to narrow down a large list, rather then scrolling thru a huge list.
+*Lots of configuration options to tweak its behavior.
+*Support for multiple options
  
 == Examples ==
 
