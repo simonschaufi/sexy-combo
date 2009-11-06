@@ -86,7 +86,7 @@
 	  name: "name",
 	  container: "#container",
 	  data: [
-	      {value: "1", text: "First option"},
+	      {value: "1", text: "First option", selected: true},
 	      {value: "2", text: "Second option"},
 	      {value: "3", text: "Third option"}
 	  ]
@@ -100,8 +100,14 @@
 	    <li><code>(string) name</code> - the name of the selectbox that will be created. Optional. Default is "" (empty string).</li>
 		<li><code>(string) id</code> - the id of the selectbox that will be created. Optional. Default is "" (empty string)</li>
 		<li><code>(mixed) container</code> - jQuery selector, jQuery object or DOM element that will hold the widget. Optional. Default is <code>$(document)</code>.</li>
-		<li><code>(array) data</code> - data that contains information about combo's options. This is an array of objects, which should have two properties - <code>value</code>(value of the option) and <code>text</code>(text that is displayed for this option). This option is required.</li>
-	</ul>
+		<li><code>(array) data</code> - data that contains information about combo's options. This is an array of objects, which should have three properties - <code>value</code>(value of the option) and <code>text</code>(text that is displayed for this option) and (optionally) <code>selected</code> (if set to true, option's "selected" attribute will be set to true. Makes sence only with <code>triggerSelected</code> config option set to true). This option is required.</li>
+		<li>
+		<code>(string) url</code> - the URL of JSON object that contains data for combo's options. Object's format is the same as for <code>data</code> option. If specified, <code>data</code> option will be ignored.
+		</li>
+		<li>
+		<code>(object) ajaxData</code> - data that will be passed to AJAX request.
+		</li>
+	</ul>    
     <h2>Appearance customization</h2>
     <p>
     In this version I have separated core CSS and presentational CSS, so now it's possible to create new skins for <em>Sexy Combo</em>. The download package contains one example skin. Feel free to create your own based on it.
