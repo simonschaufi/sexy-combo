@@ -2,7 +2,7 @@ $(function() {
 		   
 	  
     	   
-    $("#basic-combo").sexyCombo();
+    $("#basic-combo").sexyCombo({triggerSelected: true});
 	
 		
 	$.sexyCombo.deactivate("#basic-combo");
