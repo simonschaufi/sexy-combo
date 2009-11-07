@@ -1,7 +1,16 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Vladimir Kadalashvili                                       *
- *   Kadalashvili.Vladimir@gmail.com                                                    *
- *                                                                         *
+
+	sexy-combo @VERSION	: A jQuery date time picker.
+	
+	Authors: 
+		Kadalashvili.Vladimir@gmail.com - Vladimir Kadalashvili
+		thetoolman@gmail.com 
+		
+	Version: @VERSION
+	
+	Website: http://code.google.com/p/sexy-combo/
+	
+
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -16,12 +25,12 @@
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *                                                                         *
  ***************************************************************************/
 
 
 ;(function($) {
     $.fn.sexyCombo = function(config) {
-		//return;
         return this.each(function() {
 		if ("SELECT" != this.tagName.toUpperCase()) {
 		    return;	
@@ -40,7 +49,10 @@
 	
 	    //the same as the previous, but for hidden input
 	    hiddenSuffix: "__sexyComboHidden",
-	
+	    
+	    //rename original select, and call the hidden field the original name attribute?
+	    renameOriginal: false,
+	    
 	   //initial / default hidden field value.
 	   //Also applied when user types something that is not in the options list
 	    initialHiddenValue: "",
@@ -117,12 +129,18 @@
 	    attr("autocomplete", "off").
 	    attr("value", "").
 	    attr("name", this.selectbox.attr("name") + this.config.suffix);
-	
+	    
+	    var origName = this.selectbox.attr("name");
+	    var newName = origName + this.config.hiddenSuffix;
+	    if(this.config.renameOriginal) { 
+	    	this.selectbox.attr("name", newName);
+	    }
+	    	
 	    this.hidden = $("<input type='hidden' />").
 	    appendTo(this.wrapper).
 	    attr("autocomplete", "off").
 	    attr("value", this.config.initialHiddenValue).
-	    attr("name", this.selectbox.attr("name") + this.config.hiddenSuffix);
+	    attr("name", this.config.renameOriginal ? origName : newName);
 	
         this.icon = $("<div />").
 	    appendTo(this.wrapper).
@@ -264,7 +282,8 @@
 	        });
 		
 			this.input.bind("keyup", function(e) {
-				self.wrapper.data("sc:lastEvent", "key");							                //alert(self.wrapper.data("sc:lastEvent"));
+				self.wrapper.data("sc:lastEvent", "key");							                
+				//$sc.log(self.wrapper.data("sc:lastEvent"));
 				self.keyUp(e);
 			});		
 	    
@@ -681,7 +700,7 @@
 			//this.input.focus();
 		    this.setComboValue(this.getActive().text(), true, true);
 		    if (!this.multiple)
-		        this.input.blur();
+		        //this.input.blur(); //
 		    	
 		break;
 		case k.DOWN:
@@ -743,6 +762,9 @@
 					
 				}
 			});
+			//no match, must be partial input string; highlight first item
+			this.highlightFirst();
+			
 		} catch (e) {}
 	},
 	
@@ -835,7 +857,7 @@
 	    if (this.input.hasClass("empty")) {
 		this.input.removeClass("empty").
 		val("");
-            }
+        }
 	},
 	
 	inputBlur: function() {
