@@ -58,7 +58,8 @@
         <for param="file">
 			<path>
 				<fileset file="${OUT}"/>
-				<fileset file="./README.txt"/>
+				<fileset file="${DIST_DIR}/README.txt"/>
+				<fileset file="${DIST_DIR}/examples/index.html"/>
 	        	<fileset dir="${DIST_DIR}/css" includes="**/*.css"/>
 			</path>
 			<sequential>
