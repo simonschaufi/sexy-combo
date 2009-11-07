@@ -1,12 +1,12 @@
-<project name="sexy-combo" default="create" basedir=".">
+<project name="sexy-combo" default="all" basedir=".">
     <!--
     	*****************************
 		* Sexy Combo jQuery plugin *
     	*****************************
 
 		See: http://code.google.com/p/sexy-combo/
+		
 		Build script inspired by jQuery build system.  Thanks!
-
     -->
 
 	<!-- Setup -->
@@ -16,7 +16,7 @@
     <property description="Rhino JS Engine" name="JS_JAR" value="${BUILD_TOOLS_DIR}/js.jar" />
     
     <loadfile property="VERSION" srcFile="version.txt" />
-    <property description="The output filename, excluding suffix" name="BASE_NAME" value="jquery.sexyCombo" />
+    <property description="The output filename, excluding suffix" name="BASE_NAME" value="jquery.sexy-combo" />
     <property description="Distribution root" name="DIST_ROOT" value="./dist" />
 
     <property description="Versioned distribution folder" name="DIST_DIR" value="${DIST_ROOT}/${BASE_NAME}-${VERSION}" />
@@ -53,12 +53,22 @@
         <copy todir="${DIST_DIR}">
         	<fileset dir="." includes="css/** examples/**"/>
         </copy>
-        
-        <echo message="Insert version: ${VERSION}" />
-    	<java jar="${JS_JAR}" fork="true">
-            <arg value="${BUILD_TOOLS_DIR}/build/version.js" />
-            <arg value="${OUT}" />
-        </java>
+
+        <echo message="Versioning resoures in ${DIST_DIR}" />
+        <for param="file">
+			<path>
+				<fileset file="${OUT}"/>
+	        	<fileset dir="${DIST_DIR}/css" includes="**/*.css"/>
+			</path>
+			<sequential>
+        		<echo message="Insert version ${VERSION} into @{file}" />
+		    	<java jar="${JS_JAR}" fork="true" failonerror="true" append="true">
+		    		<arg value="${BUILD_TOOLS_DIR}/build/version.js" />
+		            <arg value="@{file}" />
+		    	</java>
+			</sequential>
+		</for>
+
     </target>
 
     <target name="min" depends="create" description="Remove all comments and whitespace, no compression, great in combination with GZip">
@@ -68,7 +78,7 @@
 			</path>
 			<sequential>
 		        <echo message="@{file} being 'min'ified." />
-				<java jar="${JS_JAR}" fork="true"  failonerror="true">
+				<java jar="${JS_JAR}" fork="true" failonerror="true">
 					<arg value="${BUILD_TOOLS_DIR}/build/min.js" />
 					<arg value="@{file}" />
 				</java>
