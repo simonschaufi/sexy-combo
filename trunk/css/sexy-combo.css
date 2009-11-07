@@ -1,3 +1,9 @@
+/**
+	sexy-combo @VERSION : http://code.google.com/p/sexy-combo/
+	
+	This is the base structure, a skin css file is also needed
+*/
+
 /*wrapper of all elements*/
 div.combo {
     position:relative;

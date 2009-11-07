@@ -1,27 +1,107 @@
-DIV.custom {
-	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 146px; PADDING-TOP: 0px; WHITE-SPACE: nowrap; HEIGHT: 24px; BORDER-RIGHT-WIDTH: 0px
+/**
+	sexy-combo @VERSION : http://code.google.com/p/sexy-combo/
+	
+	This is an example custom skin.
+*/
+div.custom {
+	border-top-width: 0px;
+	padding-right: 0px;
+	padding-left: 0px;
+	border-left-width: 0px;
+	border-bottom-width: 0px;
+	padding-bottom: 0px;
+	margin: 0px;
+	width: 146px;
+	padding-top: 0px;
+	white-space: nowrap;
+	height: 24px;
+	border-right-width: 0px
 }
-DIV.custom INPUT {
-	BORDER-RIGHT: #3a3c6c 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #3a3c6c 1px solid; PADDING-LEFT: 3px; BACKGROUND: url(sexy-input-bg.jpg) #fff repeat-x 0px 0px; LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 11px/19px tahoma, arial, helvetica, sans-serif; VERTICAL-ALIGN: middle; BORDER-LEFT: #3a3c6c 1px solid; WIDTH: 187px; PADDING-TOP: 3px; BORDER-BOTTOM: #3a3c6c 1px solid; TOP: 0px; HEIGHT: 19px;
+
+div.custom input {
+	border-right: #3a3c6c 1px solid;
+	padding-right: 3px;
+	border-top: #3a3c6c 1px solid;
+	padding-left: 3px;
+	background: url(sexy-input-bg.jpg) #fff repeat-x 0px 0px;
+	left: 0px;
+	padding-bottom: 0px;
+	margin: 0px;
+	font: 11px/ 19px tahoma, arial, helvetica, sans-serif;
+	vertical-align: middle;
+	border-left: #3a3c6c 1px solid;
+	width: 187px;
+	padding-top: 3px;
+	border-bottom: #3a3c6c 1px solid;
+	top: 0px;
+	height: 19px;
 }
-DIV.custom DIV.icon {
-	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(arrow.jpg) no-repeat 0px 0px; LEFT: 187px; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 24px; CURSOR: pointer; TOP: 0px; HEIGHT: 24px; BORDER-RIGHT-WIDTH: 0px
+
+div.custom div.icon {
+	border-top-width: 0px;
+	border-left-width: 0px;
+	background: url(arrow.jpg) no-repeat 0px 0px;
+	left: 187px;
+	border-bottom-width: 0px;
+	width: 24px;
+	cursor: pointer;
+	top: 0px;
+	height: 24px;
+	border-right-width: 0px
 }
-DIV.custom DIV.list-wrapper {
-	BORDER-RIGHT: #3a3c6c 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #3a3c6c 0px solid; PADDING-LEFT: 0px; LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: #3a3c6c 1px solid; WIDTH: 204px; BOTTOM: auto; PADDING-TOP: 0px; BORDER-BOTTOM: #3a3c6c 1px solid; TOP: 24px; BACKGROUND-COLOR: #ffffff
+
+div.custom div.list-wrapper {
+	border-right: #3a3c6c 1px solid;
+	padding-right: 0px;
+	border-top: #3a3c6c 0px solid;
+	padding-left: 0px;
+	left: 0px;
+	padding-bottom: 0px;
+	margin: 0px;
+	border-left: #3a3c6c 1px solid;
+	width: 204px;
+	bottom: auto;
+	padding-top: 0px;
+	border-bottom: #3a3c6c 1px solid;
+	top: 24px;
+	background-color: #ffffff
 }
-DIV.custom DIV.list-wrapper-up {
-	BORDER-RIGHT: #3a3c6c 1px solid; BORDER-TOP: #3a3c6c 1px solid; BORDER-LEFT: #3a3c6c 1px solid; BOTTOM: 24px; BORDER-BOTTOM: #3a3c6c 0px solid; TOP: auto
+
+div.custom div.list-wrapper-up {
+	border-right: #3a3c6c 1px solid;
+	border-top: #3a3c6c 1px solid;
+	border-left: #3a3c6c 1px solid;
+	bottom: 24px;
+	border-bottom: #3a3c6c 0px solid;
+	top: auto
 }
-DIV.custom UL {
-	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none; HEIGHT: 200px; TEXT-ALIGN: left; 
+
+div.custom ul {
+	padding-right: 0px;
+	padding-left: 0px;
+	padding-bottom: 0px;
+	margin: 0px;
+	padding-top: 0px;
+	list-style-type: none;
+	height: 200px;
+	text-align: left;
 }
-DIV.custom LI {
-	PADDING-RIGHT: 0px; PADDING-LEFT: 5px; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 11px tahoma, arial, helvetica, sans-serif; CURSOR: pointer; PADDING-TOP: 4px; BACKGROUND-COLOR: #ffffff
+
+div.custom li {
+	padding-right: 0px;
+	padding-left: 5px;
+	padding-bottom: 0px;
+	margin: 0px;
+	font: 11px tahoma, arial, helvetica, sans-serif;
+	cursor: pointer;
+	padding-top: 4px;
+	background-color: #ffffff
 }
-DIV.custom LI.active {
-	BACKGROUND-COLOR: rgb(160,169,194)
+
+div.custom li.active {
+	background-color: rgb(160, 169, 194)
 }
-DIV.custom INPUT.empty {
-	COLOR: gray;
+
+div.custom input.empty {
+	color: gray;
 }
