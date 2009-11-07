@@ -3,95 +3,130 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us">
   <head>
     <title>Sexy Combo demo page</title>
+
+	<!-- required base -->
+    <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="jquery.bgiframe.min.js"></script>
+
+	<!--  development source tree location for css  -->    
     <link href="../css/sexy-combo.css" rel="stylesheet" type="text/css" />
     <link href="../css/sexy/sexy.css" rel="stylesheet" type="text/css" />
 	<link href="../css/custom/custom.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
-	<script type="text/javascript" src="jquery.bgiframe.min.js"></script>
+
+	<!--  distribution location for css  -->    
+    <link href="css/sexy-combo.css" rel="stylesheet" type="text/css" />
+    <link href="css/sexy/sexy.css" rel="stylesheet" type="text/css" />
+	<link href="css/custom/custom.css" rel="stylesheet" type="text/css" />
+
+	<!-- development location, distribution location -->
     <script type="text/javascript" src="../src/jquery.sexy-combo.js"></script>
+    <script type="text/javascript" src="../jquery.sexy-combo.js"></script>
+
     <script type="text/javascript" >
-    
-    $(function() {
-		   
-  	  
-        $("#basic-combo").sexyCombo();
-    	
-    		
+    $(function () {
+
+    	$("#basic-combo").sexyCombo();
+
     	$.sexyCombo.deactivate("#basic-combo");
-    	$("#activate").bind("click", function() {
-            $.sexyCombo.activate("#basic-combo");   								  
+    	$("#activate").bind("click", function () {
+    		$.sexyCombo.activate("#basic-combo");
     	});
-        
-        $("#empty-combo").sexyCombo({emptyText: "Choose a state..."});
-        
-        $("#autofill-combo").sexyCombo({autoFill: true});
-        
-        $("#selected-combo").sexyCombo({triggerSelected: true});
-    	
 
-        
-        $("#up-combo").sexyCombo();
-        
-        $("#filter-combo").sexyCombo({filterFn: function() {
-            return true;
-        }});
-        
-        $("#mixed-combo").sexyCombo({emptyText: "Choose a state", autoFill: true, skin: "custom"});
-        
-        var data = [];
-        $("#selectbox").children().each(function() {
-            var $this = $(this);
-            data.push({value: $this.attr("value"), text: $this.text()});
-        });
-        
-        $.sexyCombo.create({name: "static-combo", id: "static-combo", container: "#static-container", data: data});
-        
-        data[0].selected = true;
-        $.sexyCombo.create({name: "static-selected-combo", id: "static-selected-combo", container: "#static-selected", data: data, triggerSelected: true});
-        
-        $.sexyCombo.create({name: "ajax-combo", id: "ajax-combo", container: "#ajax-container", url: "example.json"});
-        
-        $("#multiple-combo").sexyCombo();
-        
-        var logEvent = function(msg) {
+    	$("#empty-combo").sexyCombo({
+    		emptyText: "Choose a state..."
+    	});
+
+    	$("#autofill-combo").sexyCombo({
+    		autoFill: true
+    	});
+
+    	$("#selected-combo").sexyCombo({
+    		triggerSelected: true
+    	});
+
+    	$("#up-combo").sexyCombo();
+
+    	$("#filter-combo").sexyCombo({
+    		filterFn: function () {
+    			return true;
+    		}
+    	});
+
+    	$("#mixed-combo").sexyCombo({
+    		emptyText: "Choose a state",
+    		autoFill: true,
+    		skin: "custom"
+    	});
+
+    	var data = [];
+    	$("#selectbox").children().each(function () {
+    		var $this = $(this);
+    		data.push({
+    			value: $this.attr("value"),
+    			text: $this.text()
+    		});
+    	});
+
+    	$.sexyCombo.create({
+    		name: "static-combo",
+    		id: "static-combo",
+    		container: "#static-container",
+    		data: data
+    	});
+
+    	data[0].selected = true;
+    	$.sexyCombo.create({
+    		name: "static-selected-combo",
+    		id: "static-selected-combo",
+    		container: "#static-selected",
+    		data: data,
+    		triggerSelected: true
+    	});
+
+    	$.sexyCombo.create({
+    		name: "ajax-combo",
+    		id: "ajax-combo",
+    		container: "#ajax-container",
+    		url: "example.json"
+    	});
+
+    	$("#multiple-combo").sexyCombo();
+
+    	var logEvent = function (msg) {
     		return;
-            var $eventLogger = $("#event-logger");
-    	$eventLogger.html($eventLogger.html() + msg + "<br />");
-        };
-        
-        $("#event-combo").sexyCombo({
-           
-    	
-    	showListCallback: function() {
-    	    logEvent("Dropdown list appeared.");
-    	},
-    	
-    	hideListCallback: function() {
-    	    logEvent("Dropdown list disappeared.");
-    	},
-    	
-    	initCallback: function() {
-    	    logEvent("Initialization...");
-    	},
-    	
-    	initEventsCallback: function() {
-    	    logEvent("Events initialized.");
-    	},
-    	
-    	changeCallback: function() {
-    	    logEvent("Combo value is changed. Text input value is " + this.getTextValue() + ". Hidden input value is " + this.getHiddenValue());
-    	},
-    	
-    	textChangeCallback: function() {
-    	    logEvent("Text input's value is changed. Current value is " + this.getTextValue());
-    	}
-        });
-    	
-    	
+    		var $eventLogger = $("#event-logger");
+    		$eventLogger.html($eventLogger.html() + msg + "<br />");
+    	};
 
+    	$("#event-combo").sexyCombo({
+
+    		showListCallback: function () {
+    			logEvent("Dropdown list appeared.");
+    		},
+
+    		hideListCallback: function () {
+    			logEvent("Dropdown list disappeared.");
+    		},
+
+    		initCallback: function () {
+    			logEvent("Initialization...");
+    		},
+
+    		initEventsCallback: function () {
+    			logEvent("Events initialized.");
+    		},
+
+    		changeCallback: function () {
+    			logEvent("Combo value is changed. Text input value is " + this.getTextValue() + 
+    	    			". Hidden input value is " + this.getHiddenValue());
+    		},
+
+    		textChangeCallback: function () {
+    			logEvent("Text input's value is changed. Current value is " + this.getTextValue());
+    		}
+    	});
 
     });    
-    
     </script>
   </head>
   <body>
