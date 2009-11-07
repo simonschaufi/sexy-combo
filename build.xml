@@ -54,7 +54,7 @@
         	<fileset dir="." includes="css/** examples/**"/>
         </copy>
 
-        <echo message="Versioning resoures in ${DIST_DIR}" />
+        <echo message="Versioning resources in ${DIST_DIR}" />
         <for param="file">
 			<path>
 				<fileset file="${OUT}"/>
