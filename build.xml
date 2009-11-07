@@ -51,13 +51,14 @@
         
         <echo message="Copying static resoures to ${DIST_DIR}" />
         <copy todir="${DIST_DIR}">
-        	<fileset dir="." includes="css/** examples/**"/>
+        	<fileset dir="." includes="css/** examples/** README.txt"/>
         </copy>
 
         <echo message="Versioning resources in ${DIST_DIR}" />
         <for param="file">
 			<path>
 				<fileset file="${OUT}"/>
+				<fileset file="./README.txt"/>
 	        	<fileset dir="${DIST_DIR}/css" includes="**/*.css"/>
 			</path>
 			<sequential>
