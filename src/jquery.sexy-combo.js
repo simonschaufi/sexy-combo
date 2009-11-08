@@ -1,16 +1,15 @@
 /***************************************************************************
-
-	sexy-combo @VERSION	: A jQuery date time picker.
-	
-	Authors: 
-		Kadalashvili.Vladimir@gmail.com - Vladimir Kadalashvili
-		thetoolman@gmail.com 
-		
-	Version: @VERSION
-	
-	Website: http://code.google.com/p/sexy-combo/
-	
-
+ *                                                                         *
+ *	sexy-combo @VERSION	: A jQuery date time picker.                       *
+ *                                                                         *
+ *	Authors:                                                               *
+ *		Kadalashvili.Vladimir@gmail.com - Vladimir Kadalashvili            *
+ *		thetoolman@gmail.com                                               * 
+ *                                                                         *
+ *	Version: @VERSION
+ *                                                                         *
+ *	Website: http://code.google.com/p/sexy-combo/                          *
+ *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -28,79 +27,40 @@
  *                                                                         *
  ***************************************************************************/
 
-
 ;(function($) {
-    $.fn.sexyCombo = function(config) {
+
+	$.fn.sexyCombo = function(config) {
         return this.each(function() {
-		if ("SELECT" != this.tagName.toUpperCase()) {
-		    return;	
-		}
-	    new $sc(this, config);
+			if ("SELECT" != this.tagName.toUpperCase()) {
+			    return;	
+			}
+		    new $sc(this, config);
 	    });  
     };
     
     //default config options
     var defaults = {
-        //skin name
-        skin: "sexy",
-	
-	    //this suffix will be appended to the selectbox's name and will be text input's name
-	    suffix: "__sexyCombo",
-	
-	    //the same as the previous, but for hidden input
-	    hiddenSuffix: "__sexyComboHidden",
-	    
-	    //rename original select, and call the hidden field the original name attribute?
-	    renameOriginal: false,
-	    
-	   //initial / default hidden field value.
-	   //Also applied when user types something that is not in the options list
-	    initialHiddenValue: "",
-	
-	    //if provided, will be the value of the text input when it has no value and focus
-	    emptyText: "",
-	
-	    //if true, autofilling will be enabled
-	    autoFill: false,
-	
-	    //if true, selected option of the selectbox will be the initial value of the combo
-	    triggerSelected: true,
-	
-	    //function for options filtering
-	    filterFn: null,
-	
-	    //if true, the options list will be placed above text input
-	    dropUp: false,
-	
-	    //separator for values of multiple combos
-	    separator: ",",
-			
-		//key json name for key/value pair
-		key: "value",
-		
-		//value json for key/value pair
-		value: "text",
+        skin: "sexy", //skin name
+	    suffix: "__sexyCombo", // suffix appended to selectbox name, will be text input's name
+	    hiddenSuffix: "__sexyComboHidden", //the same as the previous, but for hidden input
+	    renameOriginal: false, //rename original select? if true call the hidden field the original name attribute
+	    initialHiddenValue: "", //initial / default hidden field value;  Also applied when no match typing
+	    emptyText: "", //if provided, value of text input when it has no value and focus
+	    autoFill: false, //enable autofilling 
+	    triggerSelected: true, //selected option of the selectbox will be the initial value of the combo
+	    filterFn: null, //function for options filtering
+	    dropUp: false, //if true, the options list will be placed above text input
+	    separator: ",", //separator for values of multiple combos
+		key: "value", //key json name for key/value pair
+		value: "text", //value json for key/value pair
 
-	    //all callback functions are called in the scope of the current sexyCombo instance
-	
-	    //called after dropdown list appears
-	    showListCallback: null,
-	
-	    //called after dropdown list disappears
-	    hideListCallback: null,
-	
-	    //called at the end of constructor
-	    initCallback: null,
-	
-	    //called at the end of initEvents function
-	    initEventsCallback: null,
-		    
-	    //called when both text and hidden inputs values are changed
-	    changeCallback: null,
-	
-	    //called when text input's value is changed
-	    textChangeCallback: null,
-	    
+		//all callback functions are called in the scope of the current sexyCombo instance
+	    showListCallback: null, //called after dropdown list appears
+	    hideListCallback: null, //called after dropdown list disappears
+	    initCallback: null, //called at the end of constructor
+	    initEventsCallback: null, //called at the end of initEvents function
+	    changeCallback: null, //called when both text and hidden inputs values are changed
+	    textChangeCallback: null, //called when text input's value is changed
 		checkWidth: true
     };
     
@@ -108,88 +68,81 @@
     //creates initial markup and does some initialization
     $.sexyCombo = function(selectbox, config) {
 		
-        if (selectbox.tagName.toUpperCase() != "SELECT")
-	        return;
+        if (selectbox.tagName.toUpperCase() != "SELECT") return;
 	    
 	    this.config = $.extend({}, defaults, config || {}); 
-	
-	   
-	    
 	    this.selectbox = $(selectbox);
 	    this.options = this.selectbox.children().filter("option");
-	
 	    this.wrapper = this.selectbox.wrap("<div>").
-	    hide().
-	    parent().
-	    addClass("combo").
-	    addClass(this.config.skin); 
+		    hide().
+		    parent().
+		    addClass("combo").
+		    addClass(this.config.skin); 
 		
 	    this.input = $("<input type='text' />").
-	    appendTo(this.wrapper).
-	    attr("autocomplete", "off").
-	    attr("value", "").
-	    attr("name", this.selectbox.attr("name") + this.config.suffix);
+		    appendTo(this.wrapper).
+		    attr("autocomplete", "off").
+		    attr("value", "").
+		    attr("name", this.selectbox.attr("name") + this.config.suffix);
 	    
 	    var origName = this.selectbox.attr("name");
 	    var newName = origName + this.config.hiddenSuffix;
+
 	    if(this.config.renameOriginal) { 
 	    	this.selectbox.attr("name", newName);
 	    }
 	    	
 	    this.hidden = $("<input type='hidden' />").
-	    appendTo(this.wrapper).
-	    attr("autocomplete", "off").
-	    attr("value", this.config.initialHiddenValue).
-	    attr("name", this.config.renameOriginal ? origName : newName);
+		    appendTo(this.wrapper).
+		    attr("autocomplete", "off").
+		    attr("value", this.config.initialHiddenValue).
+		    attr("name", this.config.renameOriginal ? origName : newName);
 	
         this.icon = $("<div />").
-	    appendTo(this.wrapper).
-	    addClass("icon"); 
+		    appendTo(this.wrapper).
+		    addClass("icon"); 
 	
 	    this.listWrapper = $("<div />").
-	    appendTo(this.wrapper).
-	    //addClass("invisible").
-	    addClass("list-wrapper"); 
+		    appendTo(this.wrapper).
+		    //addClass("invisible").
+		    addClass("list-wrapper"); 
 
 	    this.updateDrop();
 	
 	    this.list = $("<ul />").appendTo(this.listWrapper); 
 	    var self = this;
 		var optWidths = [];
+		var trie = new Trie();
+		this.trie = trie;
+
+		
 	    this.options.each(function() {					   
 	        var optionText = $.trim($(this).text());
-			if (self.config.checkWidth) {
-			    optWidths.push($("<li />").
-	            appendTo(self.list).
-	            html("<span>" + optionText + "</span>").
-	            addClass("visible").find("span").outerWidth());	
-			}
-			else {
-	            $("<li />").
+            var newItem = $("<li />").
 	            appendTo(self.list).
 	            html("<span>" + optionText + "</span>").
 	            addClass("visible");
+            	newItem.data("optionNode", $(this));
+	        
+            trie.add(optionText, newItem.get(0));
+
+            if (self.config.checkWidth) {
+			    optWidths.push(newItem.find("span").outerWidth());	
 			}
-	    });  
-		
+	    });
 	
 	    this.listItems = this.list.children();
-		
-		
-		
-		
+
 		/*this.listItems.find("span").each(function() {
 		    optWidths.push($(this).outerWidth());										  
 		});*/
-		if (optWidths.length) {
+
+	    if (optWidths.length) {
 		    optWidths = optWidths.sort(function(a, b) {
 		        return a - b;									
 		    });
 		    var maxOptionWidth = optWidths[optWidths.length - 1];
-			
-			
 		}
-		
 
         this.singleItemHeight = this.listItems.outerHeight();
 		//bgiframe causes some problems, let's remove it
@@ -197,32 +150,22 @@
 		    this.listWrapper.bgiframe({height: this.singleItemHeight * this.wrapper.find("li").height()});
 		}*/
 		this.listWrapper.addClass("invisible");
-		
        
 	    if ($.browser.opera) {
 	        this.wrapper.css({position: "relative", left: "0", top: "0"});
 	    } 
 	
-	
-	
 	    this.filterFn = ("function" == typeof(this.config.filterFn)) ? this.config.filterFn : this.filterFn;
-	
 	    this.lastKey = null;
 	    //this.overflowCSS = "overflow";
-	
 	    this.multiple = this.selectbox.attr("multiple");
-	
 	    var self = this;
-	
 	    this.wrapper.data("sc:lastEvent", "click");
-	
 	    this.overflowCSS = "overflowY";
 	
 	    if ((this.config.checkWidth) && (this.listWrapper.innerWidth() < maxOptionWidth)) {
 		    this.overflowCSS = "overflow";	
-			
 		}
-        
 		
 	    this.notify("init");
 	    this.initEvents();
@@ -250,7 +193,6 @@
 		            self.wrapper.data("sc:positionY", e.pageY);	    	
 		        }								 
 	        });
-	
 
 	        this.wrapper.bind("click", function(e) {
 	            if (!self.wrapper.data("sc:positionY"))	{
@@ -286,11 +228,7 @@
 				//$sc.log(self.wrapper.data("sc:lastEvent"));
 				self.keyUp(e);
 			});		
-	    
-	      
-			
 
-	    
 	        this.input.bind("keypress", function(e) {
 	            if ($sc.KEY.RETURN == e.keyCode) {
 	                e.preventDefault();
@@ -300,24 +238,18 @@
 	        });
 	    
 	        $(document).bind("click", function(e) {
-	            if ((self.icon.get(0) == e.target) || (self.input.get(0) == e.target))
-		            return;
-		    
+	            if ((self.icon.get(0) == e.target) || (self.input.get(0) == e.target)) return;
 		        self.hideList();    
 	        });
 	    
 	        this.triggerSelected();
 	        this.applyEmptyText();
-	    
-	        
-		
+
 		    this.input.bind("click", function(e) {
 			    self.wrapper.data("sc:lastEvent", "click");	
 			    self.icon.trigger("click");
 		    });
-			
-			
-			//here
+
 	        this.wrapper.bind("click", function() {
 	            self.wrapper.data("sc:lastEvent", "click");								
 	        });
@@ -364,8 +296,7 @@
 			
 			this.notify("initEvents");
 	    },
-	
-	
+
 	    getTextValue: function() {
             return this.__getValue("input");
 	    },
@@ -384,8 +315,7 @@
 	
 	    __getValue: function(prop) {
 	        prop = this[prop];
-	        if (!this.multiple)
-	            return $.trim(prop.val());
+	        if (!this.multiple) return $.trim(prop.val());
 		
 	        var tmpVals = prop.val().split(this.config.separator);
 	        var vals = [];
@@ -401,13 +331,10 @@
 	
 	    __getCurrentValue: function(prop) {
 	        prop = this[prop];
-	        if (!this.multiple)
-	            return $.trim(prop.val());
-		 
+	        if (!this.multiple)  return $.trim(prop.val());
             return $.trim(prop.val().split(this.config.separator).pop());		 
 	    },
 	
-	    //icon click event listener
 	    iconClick: function() {
 	        if (this.listVisible()) { 
 	            this.hideList();
@@ -429,20 +356,17 @@
 	
 	    //shows dropdown list
 	    showList: function() {
-	        if (!this.listItems.filter(".visible").length)
-	            return;
+	        if (!this.trie.matches.length) return;
 
-	        this.listWrapper.removeClass("invisible").
-	        addClass("visible");
+	        this.listWrapper.removeClass("invisible").addClass("visible");
 	        this.wrapper.css("zIndex", "99999");
 	        this.listWrapper.css("zIndex", "99999");
 	        this.setListHeight();
-		
-		    var listHeight = this.listWrapper.height();
+	        var listHeight = this.listWrapper.height();
 		    var inputHeight = this.wrapper.height();
-		
 		    var bottomPos = parseInt(this.wrapper.data("sc:positionY")) + inputHeight + listHeight;
 		    var maxShown = $(window).height() + $(document).scrollTop();
+
 		    if (bottomPos > maxShown) {
 		        this.setDropUp(true); 
 		    }
@@ -457,24 +381,21 @@
 			else {
 			    this.highlightSelected();	
 			}
-	        this.notify("showList");
+		    
+		    this.notify("showList");
 	    },
 	
 	    //hides dropdown list
 	    hideList: function() {
-	        if (this.listWrapper.hasClass("invisible"))
-	            return;
-	        this.listWrapper.removeClass("visible").
-	        addClass("invisible");
+	        if (this.listWrapper.hasClass("invisible")) return;
+	        this.listWrapper.removeClass("visible").addClass("invisible");
 	        this.wrapper.css("zIndex", "0");
 	        this.listWrapper.css("zIndex", "99999");	
-	    
 	        this.notify("hideList");
 	    },
 	
 	    //returns sum of all visible items height
 	    getListItemsHeight: function() {
-	       
 			var itemHeight = this.singleItemHeight;
 	        return itemHeight * this.liLen();
 	    },
@@ -483,57 +404,44 @@
 	    setOverflow: function() {
 		    var maxHeight = this.getListMaxHeight();
 		    
-	        if (this.getListItemsHeight() > maxHeight)
+	        if (this.getListItemsHeight() > maxHeight) {
 	            this.listWrapper.css(this.overflowCSS, "scroll");
-	        else
-	            this.listWrapper.css(this.overflowCSS, "hidden");	
+	        } else {
+	            this.listWrapper.css(this.overflowCSS, "hidden");
+	        }
 	    },
 	
 	    //highlights active item of the dropdown list
 	    highlight: function(activeItem) {
-	        if (($sc.KEY.DOWN == this.lastKey) || ($sc.KEY.UP == this.lastKey))
-	            return;
-		
+	        if (($sc.KEY.DOWN == this.lastKey) || ($sc.KEY.UP == this.lastKey)) return;
 	        this.listItems.removeClass("active");   
 	        $(activeItem).addClass("active");
 	    },
-	
 
-	
 	    //sets text and hidden inputs value
 	    setComboValue: function(val, pop, hideList) {
 	        var oldVal = this.input.val();
-	    
 	        var v = "";
+
 	        if (this.multiple) {
 	            v = this.getTextValue();
-		        if (pop) 
-		            v.pop();
+		        if (pop) v.pop();
 		        v.push($.trim(val));
 		        v = $sc.normalizeArray(v);
 		        v = v.join(this.config.separator) + this.config.separator;   
-		 
 	        } else {
 	            v = $.trim(val);
 	        }
+
 	        this.input.val(v);
 	        this.setHiddenValue(val);
 	        this.filter();
-	        if (hideList)
-	            this.hideList();
+	        if (hideList) this.hideList();
 	        this.input.removeClass("empty");
-
-	    
-	        if (this.multiple)
-	            this.input.focus();
-		
-	        if (this.input.val() != oldVal)
-	            this.notify("textChange");	
-				
+	        if (this.multiple) this.input.focus();
+	        if (this.input.val() != oldVal) this.notify("textChange");	
 	    },
-	
-	
-	
+
 	    //sets hidden inputs value
 	    //takes text input's value as a param
 	    setHiddenValue: function(val) {
@@ -542,6 +450,7 @@
 	        var oldVal = this.hidden.val();
 	    	    
 	        if (!this.multiple) {
+	        	/*
 	            for (var i = 0, len = this.options.length; i < len; ++i){
 		            if (val == this.options.eq(i).text()) {
 		                this.hidden.val(this.options.eq(i).val());
@@ -549,8 +458,12 @@
 			            break;
 		            }
 		        }
-	         }
-	        else {
+		        */
+	        	if(this.trie.matches.length == 1) {
+	        		this.hidden.val( $(this.trie.matches[0]).data("optionNode").val() );
+	        		set = true;
+	        	}
+	        } else {
 	            var comboVals = this.getTextValue();
 		        var hiddenVals = [];
 		        for (var i = 0, len = comboVals.length; i < len; ++i) {
@@ -563,22 +476,19 @@
 		
 		        if (hiddenVals.length) {
 		            set = true;
-		        this.hidden.val(hiddenVals.join(this.config.separator));
-		    }
-	     }
+			        this.hidden.val(hiddenVals.join(this.config.separator));
+			    }
+	        }
 	    
-	    if (!set) {
-	        this.hidden.val(this.config.initialHiddenValue);
-	    }
-	    
-	    if (oldVal != this.hidden.val())
-	        this.notify("change");
-		
-	    this.selectbox.val(this.hidden.val());
-		this.selectbox.trigger("change");
-	},
-	
-	
+		    if (!set) this.hidden.val(this.config.initialHiddenValue);
+
+		    if (oldVal != this.hidden.val()) this.notify("change");
+			
+		    this.selectbox.val(this.hidden.val());
+			this.selectbox.trigger("change");
+			
+		},
+
 	    listItemClick: function(item) {
 	        this.setComboValue(item.text(), true, true);
 	        this.inputFocus();
@@ -590,12 +500,12 @@
 		        var self = this;
 		        this.listItems.remove();
                 this.options = this.selectbox.children().filter("option");
+                
 	            this.options.each(function() {
 	                var optionText = $.trim($(this).text());
-	                $("<li />").
-	                appendTo(self.list).
-	                text(optionText).
-	                addClass("visible");
+	                $("<li />").appendTo(self.list).
+		                text(optionText).
+		                addClass("visible");
 	    
 	            }); 
 	
@@ -614,7 +524,7 @@
 			
 	        var comboValue = this.input.val();
 	        var self = this;
-
+/*
 	        this.listItems.each(function() {
 	            var $this = $(this);
 	            var itemValue = $this.text();
@@ -626,7 +536,27 @@
 		            addClass("invisible");
 		        }
 	        });
-	     
+	   */  
+	        
+	        var mm = this.trie.findPrefixMatchesAndMisses(self.getCurrentTextValue());
+	        
+	        this.trie.matches = mm.matches;
+	        this.trie.misses = mm.misses;
+	        //console.log("matchesLength: " + mm.matches.length + " : " + self.getCurrentTextValue() );
+	        //console.log("missesLength: " + mm.misses.length + " : " + self.getCurrentTextValue() );
+	        
+	        //array of dom nodes
+	        var setAttr = function(array, attr, val ) {
+	        	for(nodePtr in array) {
+	        		array[nodePtr].setAttribute(attr, val);
+	        	}
+	        };
+	        
+	        var classAttr = ($.support.style) ? "class" : "className" ; // IE6/7 attribute name
+	        
+	        setAttr(mm.misses, classAttr,"invisible" );
+	        setAttr(mm.matches, classAttr,"visible" );
+
 	        this.setOverflow();
 	        this.setListHeight();
 	    },
@@ -636,54 +566,43 @@
 		if ("click" == this.wrapper.data("sc:lastEvent")) {
 		    return true;	
 		}
-		//alert(currentComboValue.toSource());
+
 	    if (!this.multiple) {
 	        return itemValue.toLowerCase().indexOf(currentComboValue.toLowerCase()) == 0;
 	    }
-	    else {
-	        //exclude values that are already selected
-
-		for (var i = 0, len = allComboValues.length; i < len; ++i) {
-		    if (itemValue == allComboValues[i]) {
-		        return false;
-		    }
-		}
-		
-		return itemValue.toLowerCase().search(currentComboValue.toLowerCase()) == 0;
+	    else { //exclude values that are already selected
+			for (var i = 0, len = allComboValues.length; i < len; ++i) {
+			    if (itemValue == allComboValues[i]) {
+			        return false;
+			    }
+			}
+			return itemValue.toLowerCase().search(currentComboValue.toLowerCase()) == 0;
 	    }
 	},
 	
 	//just returns integer value of list wrapper's max-height property
 	getListMaxHeight: function() {
-			
 		var result = parseInt(this.listWrapper.css("maxHeight"), 10);
 		if (isNaN(result)) {
 		    result = this.singleItemHeight * 10;	
 		}
-		
 		return result;
 	},
 	
 	//corrects list wrapper's height depending on list items height
 	setListHeight: function() {
-	
 	    var liHeight = this.getListItemsHeight();
-		
 	    var maxHeight = this.getListMaxHeight();
-		
-	
 	    var listHeight = this.listWrapper.height();
+
 	    if (liHeight < listHeight) {
 	        this.listWrapper.height(liHeight); 
-			
 			return liHeight;
-	    }
-	    else if (liHeight > listHeight) {
+
+	    } else if (liHeight > listHeight) {
 	        this.listWrapper.height(Math.min(maxHeight, liHeight));
-			
 			return Math.min(maxHeight, liHeight);
 	    }
-				
 	},
 	
 	//returns active (hovered) element of the dropdown list
@@ -697,74 +616,84 @@
 	    switch (e.keyCode) {
 	        case k.RETURN:
 			case k.TAB:
-			//this.input.focus();
-		    this.setComboValue(this.getActive().text(), true, true);
-		    if (!this.multiple)
-		        //this.input.blur(); //
-		    	
-		break;
-		case k.DOWN:
-		    this.highlightNext();
-		break;
-		case k.UP:
-		    this.highlightPrev();
-		break;
-		case k.ESC:
-		    this.hideList();
-		break;
-		default:
-		    this.inputChanged();
-		break;
+				//this.input.focus();
+			    this.setComboValue(this.getActive().text(), true, true);
+			    if (!this.multiple){
+			        //this.input.blur(); //
+			    }	
+				break;
+			case k.DOWN:
+			    this.highlightNext();
+			    break;
+			case k.UP:
+			    this.highlightPrev();
+			    break;
+			case k.ESC:
+			    this.hideList();
+			    break;
+			default:
+			    this.inputChanged();
+				break;
 	    }
-	    
-	    
 	},
 	
 	//returns number of currently visible list items
 	liLen: function() {
-	    return this.listItems.filter(".visible").length;
+	    //return this.listItems.filter(".visible").length;
+		return this.trie.matches.length;
 	},
 	
 	//triggered when the user changes combo value by typing
 	inputChanged: function() {
-	    this.filter();
-
 	    if (this.liLen()) {
 	        this.showList();
-		this.setOverflow();
-		this.setListHeight();
+			this.setOverflow();
+			this.setListHeight();
 	    } else {
 	        this.hideList();
 	    }
-	    
+
 	    this.setHiddenValue(this.input.val());
 	    this.notify("textChange");
-	    
 	},
 	
 	//highlights first item of the dropdown list
 	highlightFirst: function() {
-	    this.listItems.removeClass("active").filter(".visible:eq(0)").addClass("active");
+	    //this.listItems.removeClass("active").filter(".visible:eq(0)").addClass("active");
+		$(this.trie.matches[0]).addClass("active");
 	    this.autoFill();
 	},
 	
 	highlightSelected: function() {
-        this.listItems.removeClass("active");
-		var val = $.trim(this.input.val());
+        //already clobbered :) this.listItems.removeClass("active");
+		//var val = $.trim(this.input.val());
 		
 		try {
+			/*
 			this.listItems.each(function() {
 			    var $this = $(this);
 				if ($this.text() == val) {
 				    $this.addClass("active");	
 					self.listWrapper.scrollTop(0);
 					self.scrollDown();
-					
 				}
 			});
+			*/
+			
+			/*is this even needed? maybe combos
+			
+			var matches = this.trie.findPrefixMatches(val);
+			if(matches.length == 1) {
+				$(matches[0]).addClass("active");	
+				self.listWrapper.scrollTop(0);
+				self.scrollDown();
+				
+			} else{
+			*/
+
 			//no match, must be partial input string; highlight first item
 			this.highlightFirst();
-			
+
 		} catch (e) {}
 	},
 	
@@ -1106,4 +1035,138 @@
 	    return result;
 	}
     });
+ 
+    
+/******************************************************
+ * Trie implementation for fast prefix searching
+ * 
+ *		http://en.wikipedia.org/wiki/Trie
+ *******************************************************/
+
+    /**
+     * Constructor
+     */
+    function Trie() {
+        this.root = [null, {}]; //masterNode
+    };
+
+    /**
+     * Add (String, Object) to store 
+     */
+    Trie.prototype.add = function( key, object ) {
+        var curNode = this.root;
+        var kLen = key.length; 
+        
+        for(var i = 0; i < kLen; i++) {
+            var char = key.charAt(i);
+            var node = curNode[1];
+            if(char in node) {
+                curNode = node[char];
+            } else {
+                curNode = node[char] = [null, {}];
+            }
+        }
+        curNode[0] = object;
+    };
+
+    /**
+     * Find object exactly matching key (String)
+     */
+	Trie.prototype.find = function( key ) {
+		var resultNode = this.findNode(key);
+		return (resultNode) ? resultNode[0] : null;
+	};	
+
+    /**
+     * Find trieNode exactly matching (key) 
+     */
+	Trie.prototype.findNode = function( key ) {
+		var results = this.findNodePartial(key);
+		var node = results[0];
+		var remainder = results[1];
+		return (remainder.length > 0) ? null : node;
+	};
+	
+    /**
+     * Find prefix trieNode closest to (String) 
+     * returns [trieNode, remainder]
+     */
+    Trie.prototype.findNodePartial = function(key) {
+		var curNode = this.root;
+		var remainder = key;
+		var kLen = key.length;
+
+		for (var i = 0; i < kLen; i++) {
+			var char = key.charAt(i);
+			if (char in curNode[1]) {
+				curNode = curNode[1][char];
+			} else {
+				return [ curNode, remainder ]; 
+			}
+			remainder = remainder.slice(1, remainder.length);
+		}
+		return [ curNode, remainder ];
+	};
+
+    /**
+     * Get array of all objects on (trieNode) 
+     */
+	Trie.prototype.getValues = function(trieNode) { 
+		return this.getMissValues(trieNode, null); // == Don't miss any
+	};
+
+    /**
+     * Get array of all objects on (startNode), except objects on (missNode) 
+     */
+	Trie.prototype.getMissValues = function(startNode, missNode) { // string 
+		if (startNode == null) return [];
+		var stack = [ startNode ];
+		var results = [];
+		while (stack.length > 0) {
+			var thisNode = stack.pop();
+			if (thisNode == missNode) continue;
+			if (thisNode[0]) results.unshift(thisNode[0]);
+			for ( var char in thisNode[1]) {
+				if (thisNode[1].hasOwnProperty(char)) {
+					stack.push(thisNode[1][char]);
+				}
+			}
+		}
+		return results;
+	};
+
+    /**
+     * Get array of all objects exactly matching the key (String) 
+     */
+	Trie.prototype.findPrefixMatches = function(key) { 
+		var trieNode = findNode(this, key);
+		return this.getValues(trieNode);
+	}
+
+    /**
+     * Get array of all objects not matching entire key (String) 
+     */
+	Trie.prototype.findPrefixMisses = function(key) { // string 
+		var trieNode = findNode(this, key);
+		return this.getMissValues(this.root, trieNode);
+	};
+	
+    /**
+     * Get object with two properties:
+     * 	matches: array of all objects not matching entire key (String) 
+     * 	misses:  array of all objects exactly matching the key (String)
+     * 
+     * This reuses "findNode()" to make it faster then 2x method calls
+     */
+	Trie.prototype.findPrefixMatchesAndMisses = function(key) { // string 
+		var trieNode = this.findNode(key);
+		var matches = this.getValues(trieNode);
+		var misses = this.getMissValues(this.root, trieNode);
+
+		return {
+			matches : matches,
+			misses : misses
+		};
+	};
+	
 })(jQuery); 
