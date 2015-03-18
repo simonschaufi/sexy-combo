@@ -1,0 +1,135 @@
+# Sexy Combo jQuery plugin #
+
+## Introduction ##
+
+Sexy Combo is a jQuery plugin that replaces drop downs with a more usable and style-able version then the browser default. The plugin offers:
+
+  * Skinned drop downs: A sexy default skin included, but modular code and smart CSS make it easy to style however you want.
+  * Filtering select via typing: Start typing to narrow down a large list, rather then scrolling thru a huge list.
+  * Lots of configuration options to tweak its behavior.
+  * Support for multiple options
+
+## Examples ##
+
+Please view [demo page](http://phone.witamean.net/sexy-combo/examples/index.html) to see the possibilities of _Sexy Combo 2.0.9_.  Newer version of example pages coming soon.
+
+
+## Installation ##
+
+Please follow these instructions to install Sexy Combo:
+
+  1. Download and unpack the archive.
+  1. Include jQuery and plugin files to your web page:
+
+
+```
+<script type="text/javascript" src="path_to_plugin/lib/jquery-1.3.2.js"></script>
+<script type="text/javascript" src="path_to_plugin/lib/jquery.sexy-combo-2.1.2.js"></script>
+```
+
+  1. Include core and skin CSS files to your page:
+
+```
+// core structure
+<link rel="stylesheet" type="text/css" href="path_to_plugin/lib/sexy-combo.css" />
+//sexy skin; substitute different skin here if desired
+<link rel="stylesheet" type="text/css" href="path_to_plugin/skins/sexy/sexy.css">
+
+```
+
+
+  1. Done! Now make your selectboxes look and behave sexy! 	 `  	$("select").sexyCombo(); 	 `
+
+## Usage and configuration options ##
+
+> _Sexy Combo_ has a number of configuration options that are passed to the plugin in the form of JavaScript object, e.g. `$("select").sexyCombo({triggerSelected: true});`. The full list of options is:
+
+
+
+  * `(string) skin` - name of the skin that will be applied to the combobox. Default is "sexy"
+  * `(string) suffix` - this option allows you to configure text input's name. The suffix will be appended to the name of the selectbox. Default is "sexyCombo".
+  * `(string) hiddenSuffix` - the same as previous, but for the hidden input. Default is "sexyComboHidden".
+  * `(string) initialHiddenValue` - the initial value of the hidden input of the combo. Default is "" (empty string).
+  * `(string) emptyText` - if provided, will be shown when an empty text input has no focus.
+  * `(bool) autoFill` - if true, user's input will be autofilled with the value of the first item of the dropdown list. Default is false.
+  * `(bool) triggerSelected` - if true, the selected option of the selectbox will become the initial value of the combo. Default is false.
+  * `(function) filterFn` - a filter function that determines which options should be in the dropdown list.  This function takes two parameters - current text input value and dropdown list item's value, and should return true if item should be in the dropdown list, otherwise false. Default is null.
+  * `(bool) dropUp` - if true, the dropdown list will appear above text input. Default is false.
+  * `(function) initCallback` - function that is called at the end of constrictor. Default is null.
+  * `(function) initEventsCallback` - function that is called at the end of initEvents method. Default is null.
+  * `(function) showListCallback` - function that is called when the dropdown list appears. Default is null.
+  * `(function) hideListCallback` - function that is called when the dropdown list disappears. Default is null.
+  * `(function) changeCallback` - function that is called when both text and hidden inputs values are changed. Default is null.
+  * `(function) textChangeCallback` - function that is called when text input's value is changed. Default is null.
+
+
+> Note that all callback functions are called in the scope of `sexyCombo` instance, so you have access to all of its methids / properties.
+
+
+
+
+> It is possible to create multiple comboboxes from which users can choose more than one option. All you need is to set "multiple" attribute of your selectbox to true, or set `multiple` config option to true if you create combo without selectbox. Currently this option does not work with `autoFill` config option. It will be fixed in one of the futute releases.
+
+
+
+
+> You are also able to create combos without using  existing selectboxes. If you want to do this, you should use static method of `jQuery.sexyCombo` object named `create`, for example:
+
+
+```
+
+      $.sexyCombo.create({
+          id : "id",
+	  name: "name",
+	  container: "#container",
+	  data: [
+	      {value: "1", text: "First option", selected: true},
+	      {value: "2", text: "Second option"},
+	      {value: "3", text: "Third option"}
+	  ]
+      });
+      
+```
+
+
+> Below is the list of configuration options for static creating of comboboxes. You can pass them to the `create` method together with options we have discussed above.
+
+
+
+  * `(string) name` - the name of the selectbox that will be created. Optional. Default is "" (empty string).
+  * `(string) id` - the id of the selectbox that will be created. Optional. Default is "" (empty string)
+  * `(mixed) container` - jQuery selector, jQuery object or DOM element that will hold the widget. Optional. Default is `$(document)`.
+  * `(array) data` - data that contains information about combo's options. This is an array of objects, which should have three properties - `value`(value of the option) and `text`(text that is displayed for this option) and (optionally) `selected` (if set to true, option's "selected" attribute will be set to true. Makes sence only with `triggerSelected` config option set to true). This option is required.
+  * `(string) url` - the URL of JSON object that contains data for combo's options. Object's format is the same as for `data` option. If specified, `data` option will be ignored.
+  * `(object) ajaxData` - data that will be passed to AJAX request.
+  * `(bool) multiple` - if true, the combobox will be multiple. Default is false.
+
+## Appearance customization ##
+
+
+> In this version I have separated core CSS and presentational CSS, so now it's possible to create new skins for _Sexy Combo_. The download package contains one example skin. Feel free to create your own based on it.
+
+
+
+## Browser compatibility ##
+
+> _Sexy Combo_ has been tested and works on the following browsers:
+
+  * Internet Explorer 6 (PC)
+  * Internet Explorer 7 (PC)
+  * Firefox 1.5 (Linux)
+  * Firefox 2 (Linux)
+  * Firefox 3 (PC)
+  * Opera 9 (PC)
+
+The developers welcome bug reports on any browser bug.  Patches or code suggestions are also welcome.
+
+## Support project ##
+
+
+> Every user of _Sexy Combo_ adds some value to it, so you help me by just using it. However, if you want to help more, you can do the following:
+
+  * Tell the world about _Sexy Combo_. You can write an article or a blog post about it or just tell your friends/colleagues about it.
+  * Test it on browsers that are not currently supported "officially".
+  * Report a bug.
+  * If you can contribute high quality fixes and improvements, join the devlopment here!
